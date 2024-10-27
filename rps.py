@@ -3,7 +3,7 @@ import random
 
 class RPSGame:
 
-    def startGame(chosen):
+    def startGame(chosen, responseObj):
         playerChoice = chosen
         wins = 0
         losses = 0
@@ -16,10 +16,13 @@ class RPSGame:
             print("Machine choice: " + choices[machineChoice])
             match playerChoice - 1 - machineChoice:
                 case 1 | -2:
-                    wins+=1
-                    return (choices[playerChoice - 1] + " beats " + choices[machineChoice] + ". You win!")
+                    responseObj.wins+=1
+                    responseObj.playerMessage = choices[playerChoice - 1] + " beats " + choices[machineChoice] + ". You win!"
                 case 0:
-                    return ("It's a tie")
+                    responseObj.ties+=1
+                    responseObj.playerMessage = ("It's a tie")
                 case _:
-                    losses+=1
-                    return (choices[machineChoice] + " beats " + choices[playerChoice - 1] + ". You lose...")
+                    responseObj.losses+=1
+                    responseObj.playerMessage =  (choices[machineChoice] + " beats " + choices[playerChoice - 1] + ". You lose...")
+
+            return responseObj;
